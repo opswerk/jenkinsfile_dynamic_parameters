@@ -5,7 +5,7 @@ def versions
 
 node {
     dir('${WORKSPACE/scripts') {
-        nodes = sh (script: 'sh list_nodes.sh', returnStdout: true).trim()
+        nodes = sh (script: 'sh get_versions.sh', returnStdout: true).trim()
     }
 }
 
@@ -31,7 +31,7 @@ agent any
                 script {
                     def version_collection
                     def chosen_node = "${params.Nodes}"
-                    dir('/home/pencillr/workspace') {
+                    dir('${WORKSPACE}/scripts') {
                          version_collection = sh (script: "sh list_versions.sh $chosen_node", returnStdout: true).trim()
                     }
                         versions = input message: 'Choose testload version!', ok: 'SET', parameters: [choice(name: 'TESTLOAD_VERSION', choices: "${version_collection}", description: '')]
