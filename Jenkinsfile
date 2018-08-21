@@ -4,7 +4,7 @@ def nodes
 def versions
 
 node {
-    dir('/home/pencillr/workspace') {
+    dir('${WORKSPACE/scripts') {
         nodes = sh (script: 'sh list_nodes.sh', returnStdout: true).trim()
     }
 }
